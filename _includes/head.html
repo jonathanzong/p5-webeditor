@@ -1,0 +1,18 @@
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{% if page.title %}{{ page.title | escape }}{% else %}{{ site.title | escape }}{% endif %}</title>
+  <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+
+  <link rel="stylesheet" type="text/css" href="{{ '/css/main.css' | prepend: site.baseurl }}">
+  
+  <script src="{{ '/scripts/vendor/jquery-3.1.0.min.js' | prepend: site.baseurl }}"></script>
+  <script src="{{ '/scripts/vendor/esprima.js' | prepend: site.baseurl }}"></script>
+  <script src="{{ '/scripts/vendor/p5.min.js' | prepend: site.baseurl }}"></script>
+  <script src="{{ '/scripts/vendor/p5.dom.min.js' | prepend: site.baseurl }}"></script>
+  <script src="{{ '/scripts/vendor/p5.sound.min.js' | prepend: site.baseurl }}"></script>
+
+  <script src="{{ '/scripts/src/index.js' | prepend: site.baseurl }}"></script>
+</head>

@@ -1,0 +1,12 @@
+script[contenteditable] {
+  display: block;
+  font-family: monospace;
+  white-space: pre;
+  overflow: scroll;
+  word-wrap: normal;
+  background: #ccc;
+  border: 1px solid black;
+  padding: 1em;
+  outline: none;
+  height: 100%;
+}

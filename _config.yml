@@ -1,0 +1,6 @@
+title: p5.js Web Editor
+description: >
+  In-browser editor for p5.js with live reloading, tightening the creative feedback loop.
+baseurl: "/p5-webeditor" # the subpath of your site, e.g. /blog
+sass:
+  sass_dir: ./_scss
