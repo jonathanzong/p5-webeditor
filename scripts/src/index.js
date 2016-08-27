@@ -1,41 +1,59 @@
 $(document).ready(function() {
-  // http://www.simonewebdesign.it/how-to-make-browser-editor-with-html5-contenteditable/
-  var timer,
-      js = document.getElementById('js'),
-      delay = 1000;
+  windowWidth = $('#canvas-wrapper').width();
+  windowHeight = $('#canvas-wrapper').height();
 
-  var code = localStorage.getItem("p5editor-code") || js.textContent.trim();
+  var editor = ace.edit("editor");
+  editor.setTheme("ace/theme/monokai");
+  editor.getSession().setMode("ace/mode/javascript");
 
-  js.onkeyup = function(event) {
+  var code = localStorage.getItem("p5editor-code") || $('#default').text();
+  editor.setValue(code);
+  _executeCode();
 
+  var timer, delay = 500;
+
+  editor.getSession().on('change', function() {
     if (typeof timer != "undefined") {
-
       clearTimeout(timer);
       timer = 0;
     }
-
     timer = setTimeout(reloadCode, delay);
+  });
+
+  var jshint_opts = {
+    asi: true,
+    boss: true,
+    eqnull: true,
+    loopfunc: true,
+    noyield: true,
+    proto: true,
+    supernew: true,
+    withstmt: true
   };
 
   function reloadCode() {
-    var nowCode = js.textContent.trim();
+    var nowCode = editor.getValue().trim();
     if (code !== nowCode) {
       // code changed
-      try {
-        var syntax = esprima.parse(nowCode);
-        // validated
-        code = nowCode;
-        localStorage.setItem("p5editor-code", code);
-        executeCode();
-      } catch(e) {}
+      JSHINT(nowCode, jshint_opts, Object.keys(p5.prototype))
+      if (JSHINT.errors.length) {console.log(JSHINT.errors)}
+      if (JSHINT.errors.length) return;
+      // good to go
+      code = nowCode;
+      localStorage.setItem("p5editor-code", code);
+      _executeCode(code);
+      _executeCode("setup();");
     }
   }
 
-  function executeCode() {
-    $('script:not(#js)').remove();
+  function _executeCode(src) {
+    var exec = document.getElementById('exec');
+    while (exec.firstChild) {
+      exec.removeChild(exec.firstChild);
+    }
     var script = document.createElement("script");
-    script.innerHTML = code;
-    js.parentNode.insertBefore(script, js);
+    script.innerHTML = src;
+    exec.appendChild(script);
   }
 
 });

@@ -3,12 +3,16 @@ layout: default
 ---
 
 <div class="container-fluid">
-  <h1>p5.js Web Editor</h1>
   <div class="row">
-  <div class="col-sm-6">
-    <script id="js" contenteditable>{% include default.js.html %}</script>
+    <div class="col-sm-6">
+      <div id="editor"></div>
+    </div>
+    <div class="col-sm-6">
+      <div id="canvas-wrapper"></div>
+    </div>
   </div>
-  <div class="col-sm-6">
-    <div id="canvas-wrapper"></div>
-  </div>
+</div>
+
+<div id="exec">
+  <script id="default">{% include default.js.html %}</script>
 </div>
