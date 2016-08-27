@@ -1,8 +1,12 @@
 function setup() {
   var canvas = createCanvas(windowWidth, windowHeight);
   canvas.parent('canvas-wrapper');
+  
+  colorMode(HSB, 100);
+  noStroke();
 }
 
 function draw() {
-  ellipse(Math.random() * width, Math.random() * height, 50, 50);
+  fill(color(Math.random() * 100, 55, 100, 55));
+  ellipse(Math.random() * width, Math.random() * height, 20, 20);
 }

@@ -8,7 +8,7 @@ $(document).ready(function() {
 
   var code = localStorage.getItem("p5editor-code") || $('#default').text();
   editor.setValue(code);
-  _executeCode();
+  _executeCode(code);
 
   var timer, delay = 500;
 
@@ -47,6 +47,7 @@ $(document).ready(function() {
   }
 
   function _executeCode(src) {
+    src = src || code;
     var exec = document.getElementById('exec');
     while (exec.firstChild) {
       exec.removeChild(exec.firstChild);
