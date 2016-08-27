@@ -66,18 +66,39 @@ $(document).ready(function() {
     }
     var script = document.createElement('script');
     script.innerHTML = src;
+    errors = {};
     $('#error-console').empty();
-    try {
-      exec.appendChild(script);
-    } catch(e){ }
+    exec.appendChild(script);
   }
 
-  window.onerror = function(msg, url, line, col, error) {
+  var errors = {};
+
+  suppressUncaughtErrors(p5.prototype, function(e) {
+    if (errors[e.message]) return;
+    errors[e.message] = true;
     var errorConsole = document.getElementById('error-console');
     var div = document.createElement('div');
-    div.innerHTML = msg;
+    div.innerHTML = e.message;
     errorConsole.appendChild(div);
     $(errorConsole).animate({ scrollTop: errorConsole.scrollHeight });
-  };
+  });
 
+  //by Nicholas C. Zakas (MIT Licensed)
+  function suppressUncaughtErrors(object, onError) {
+    var name, method;
+    for (name in object) {
+      method = object[name];
+      if (typeof method == "function") {
+        object[name] = function(name, method){
+          return function(){
+            try {
+              return method.apply(this, arguments);
+            } catch (ex) {
+              onError(ex);
+            }
+          };
+        }(name, method);
+      }
+    }
+  }
 });
