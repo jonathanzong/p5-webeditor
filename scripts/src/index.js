@@ -23,11 +23,10 @@ $(document).ready(function() {
       timer = 0;
     }
     // ignore deltas that are only whitespace or semicolons
-    var ignore = e.lines.map(function(el) {
+    var ignore = e.lines.every(function(el) {
       return (el.trim().length == 0 || el.trim() == ';');
-    }).reduce(function(previousValue, currentValue) {
-      return previousValue && currentValue;
-    });
+    })
+    console.log(ignore);
     if (!ignore) {
       timer = setTimeout(reloadCode, delay);
     }
