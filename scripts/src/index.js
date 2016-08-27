@@ -4,7 +4,11 @@ $(document).ready(function() {
 
   var editor = ace.edit("editor");
   editor.setTheme("ace/theme/monokai");
-  editor.getSession().setMode("ace/mode/javascript");
+  editor.getSession().setOptions({
+    mode: "ace/mode/javascript",
+    tabSize: 2,
+    useSoftTabs: true
+  });
 
   var code = localStorage.getItem("p5editor-code") || $('#default').text();
   editor.setValue(code);
