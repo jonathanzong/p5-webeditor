@@ -54,7 +54,17 @@ $(document).ready(function() {
     }
     var script = document.createElement("script");
     script.innerHTML = src;
-    exec.appendChild(script);
+    try {
+      exec.appendChild(script);
+    } catch(e){ }
   }
+
+  window.onerror = function(msg, url, line, col, error) {
+    var errorConsole = document.getElementById('error-console');
+    var div = document.createElement("div");
+    div.innerHTML = msg;
+    errorConsole.appendChild(div);
+    $(errorConsole).animate({ scrollTop: errorConsole.scrollHeight });
+  };
 
 });

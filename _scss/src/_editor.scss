@@ -5,3 +5,22 @@
   bottom: 0;
   left: 0;
 }
+
+#error-console {
+  position: absolute;
+  bottom: 0;
+  left: 41px;
+  right: 0;
+  height: 20%;
+  overflow-y: scroll;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  div {
+    padding: 3px 5px;
+    margin-bottom: 0.5em;
+    &:nth-child(even) {
+      background: rgba(100, 100, 100, 0.7);
+    }
+  }
+}
