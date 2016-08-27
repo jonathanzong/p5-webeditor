@@ -2,22 +2,23 @@ $(document).ready(function() {
   windowWidth = $('#canvas-wrapper').width();
   windowHeight = $('#canvas-wrapper').height();
 
-  var editor = ace.edit("editor");
-  editor.setTheme("ace/theme/monokai");
+  var editor = ace.edit('editor');
+  editor.setTheme('ace/theme/monokai');
   editor.getSession().setOptions({
-    mode: "ace/mode/javascript",
+    mode: 'ace/mode/javascript',
     tabSize: 2,
     useSoftTabs: true
   });
 
-  var code = localStorage.getItem("p5editor-code") || $('#default').text();
+  var code = localStorage.getItem('p5editor-code') || $('#default').text();
   editor.setValue(code);
   _executeCode(code);
+  _executeCode('setup();');
 
   var timer, delay = 500;
 
   editor.getSession().on('change', function(e) {
-    if (typeof timer != "undefined") {
+    if (typeof timer != 'undefined') {
       clearTimeout(timer);
       timer = 0;
     }
@@ -51,9 +52,9 @@ $(document).ready(function() {
       if (JSHINT.errors.length) return;
       // good to go
       code = nowCode;
-      localStorage.setItem("p5editor-code", code);
+      localStorage.setItem('p5editor-code', code);
       _executeCode(code);
-      _executeCode("setup();");
+      _executeCode('setup();');
     }
   }
 
@@ -63,7 +64,7 @@ $(document).ready(function() {
     while (exec.firstChild) {
       exec.removeChild(exec.firstChild);
     }
-    var script = document.createElement("script");
+    var script = document.createElement('script');
     script.innerHTML = src;
     $('#error-console').empty();
     try {
@@ -73,7 +74,7 @@ $(document).ready(function() {
 
   window.onerror = function(msg, url, line, col, error) {
     var errorConsole = document.getElementById('error-console');
-    var div = document.createElement("div");
+    var div = document.createElement('div');
     div.innerHTML = msg;
     errorConsole.appendChild(div);
     $(errorConsole).animate({ scrollTop: errorConsole.scrollHeight });
