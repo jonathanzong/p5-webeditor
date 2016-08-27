@@ -16,12 +16,20 @@ $(document).ready(function() {
 
   var timer, delay = 500;
 
-  editor.getSession().on('change', function() {
+  editor.getSession().on('change', function(e) {
     if (typeof timer != "undefined") {
       clearTimeout(timer);
       timer = 0;
     }
-    timer = setTimeout(reloadCode, delay);
+    // ignore deltas that are only whitespace or semicolons
+    var ignore = e.lines.map(function(el) {
+      return (el.trim().length == 0 || el.trim() == ';');
+    }).reduce(function(previousValue, currentValue) {
+      return previousValue && currentValue;
+    });
+    if (!ignore) {
+      timer = setTimeout(reloadCode, delay);
+    }
   });
 
   var jshint_opts = {
@@ -40,7 +48,6 @@ $(document).ready(function() {
     if (code !== nowCode) {
       // code changed
       JSHINT(nowCode, jshint_opts, Object.keys(p5.prototype))
-      if (JSHINT.errors.length) {console.log(JSHINT.errors)}
       if (JSHINT.errors.length) return;
       // good to go
       code = nowCode;
@@ -58,6 +65,7 @@ $(document).ready(function() {
     }
     var script = document.createElement("script");
     script.innerHTML = src;
+    $('#error-console').empty();
     try {
       exec.appendChild(script);
     } catch(e){ }

@@ -11,7 +11,7 @@
   bottom: 0;
   left: 41px;
   right: 0;
-  height: 20%;
+  height: 0;
   overflow-y: scroll;
   z-index: 1;
   background: rgba(0, 0, 0, 0.7);
@@ -23,4 +23,8 @@
       background: rgba(100, 100, 100, 0.7);
     }
   }
+}
+
+#error-console:not(:empty) {
+  height: 20%;
 }
