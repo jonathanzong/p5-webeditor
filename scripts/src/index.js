@@ -1,6 +1,13 @@
 $(document).ready(function() {
   windowWidth = $('#canvas-wrapper').width();
   windowHeight = $('#canvas-wrapper').height();
+  
+  var fxns = [
+    'setup', 'draw', 'preload', 'mousePressed', 'mouseReleased', 
+    'mouseMoved', 'mouseDragged', 'mouseClicked', 'mouseWheel', 
+    'touchStarted', 'touchMoved', 'touchEnded', 
+    'keyPressed', 'keyReleased', 'keyTyped'
+  ];
 
   var editor = ace.edit('editor');
   editor.setTheme('ace/theme/monokai');
@@ -12,8 +19,7 @@ $(document).ready(function() {
 
   var code = localStorage.getItem('p5editor-code') || $('#default').text();
   editor.setValue(code);
-  _executeCode(code);
-  _executeCode('setup();');
+  cleanExecuteCode(code);
 
   var timer, delay = 500;
 
@@ -51,14 +57,25 @@ $(document).ready(function() {
       if (JSHINT.errors.length) return;
       // good to go
       code = nowCode;
-      localStorage.setItem('p5editor-code', code);
-      _executeCode(code);
-      _executeCode('setup();');
+      localStorage.setItem('p5editor-code', nowCode);
+      cleanExecuteCode(nowCode);
+    }
+  }
+
+  function cleanExecuteCode(src) {
+    src = src || code;
+    fxns.forEach(function(f) {
+      if (window[f] && typeof window[f] === 'function') {
+        window[f] = undefined;
+      }
+    });
+    _executeCode(src);
+    if (window['setup'] && typeof window['setup'] === 'function') {
+      setup();
     }
   }
 
   function _executeCode(src) {
-    src = src || code;
     var exec = document.getElementById('exec');
     while (exec.firstChild) {
       exec.removeChild(exec.firstChild);
