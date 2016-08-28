@@ -6,7 +6,7 @@ I was motivated to develop ``p5-webeditor`` because I wanted to reduce the frict
 
 Initially, my two main interface goals were:
 * Intelligent reloading
-    * Reloading the sketch disrupts flow, and should happen as infrequently as possible. In particular, the sketch should never reload on syntactically invalid/unfinished code and show a blank or crashed state.
+    * Reloading the sketch disrupts flow, and should happen as infrequently as possible in order to keep the canvas up to date. In particular, the sketch should never reload on syntactically invalid/unfinished code that a user would not have intended to reload.
 * Code persistence
     * Ever filled out a form and accidentally pressed the back button and lost everything? The editor should regularly save state and act as a metaphorical sketchbook.
 
