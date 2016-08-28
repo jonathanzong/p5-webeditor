@@ -1,7 +1,7 @@
 $(document).ready(function() {
   windowWidth = $('#canvas-wrapper').width();
   windowHeight = $('#canvas-wrapper').height();
-  
+
   var fxns = [
     'setup', 'draw', 'preload', 'mousePressed', 'mouseReleased', 
     'mouseMoved', 'mouseDragged', 'mouseClicked', 'mouseWheel', 
@@ -32,7 +32,6 @@ $(document).ready(function() {
     var ignore = e.lines.every(function(el) {
       return (el.trim().length == 0 || el.trim() == ';');
     })
-    console.log(ignore);
     if (!ignore) {
       timer = setTimeout(reloadCode, delay);
     }
