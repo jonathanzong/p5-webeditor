@@ -1,5 +1,5 @@
 # p5-webeditor
-In-browser editor for p5.js with live reloading, tightening the creative feedback loop.
+[In-browser editor](https://jonathanzong.github.io/p5-webeditor/) for p5.js with live reloading, tightening the creative feedback loop.
 
 ## Design Goals
 I was motivated to develop ``p5-webeditor`` because I wanted to reduce the friction between having an idea to explore in p5 and being able to see it live. Being able to quickly try a concept without setting up a new project is powerful; so is not needing to refresh the page every few seconds after making short edits. The power of ``p5`` is that it runs in a browser environment, and this project hopes to leverage that into a more fluid experience.
